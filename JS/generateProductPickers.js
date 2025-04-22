@@ -23,10 +23,10 @@ const generateProductPickers = () => {
                 <button class="product__sign js-plusButton${index + 1}">+</button>
             </form>
             <div class="product__macros">
-                <div><span class="js-productKcal${index + 1}">[]</span>kcal</div>
-                <div><span class="js-productWhey${index + 1}">[]</span>whey</div>
-                <div><span class="js-productFat${index + 1}">[]</span>fat</div>
-                <div><span class="js-productCarbs${index + 1}">[]</span>carbs</div>
+                <div><span class="js-productKcal${index + 1}">[]</span> kcal</div>
+                <div><span class="js-productWhey${index + 1}">[]</span>g whey</div>
+                <div><span class="js-productFat${index + 1}">[]</span>g fat</div>
+                <div><span class="js-productCarbs${index + 1}">[]</span>g carbs</div>
             </div>
         </div>`
     ).join("")
@@ -98,10 +98,10 @@ form.addEventListener("submit", (event) => {
                 productsCarbsRef.innerText = Math.ceil(productMacros.carbs * (weight / 100));
             }
 
-            productsKcal.map((product) => {
+            productsKcal.forEach((product) => {
                 sumOfKcal.push(Number(document.querySelector("." + product).innerText));
-                console.log(sumOfKcal);
             })
+            console.log(sumOfKcal);
         }
 
         productsFormRef.addEventListener("submit", (event) => {
@@ -126,9 +126,6 @@ form.addEventListener("submit", (event) => {
         });
     }
 
-    sumOfKcal.map((product) => (
-        Number(product)
-    ))
-    console.log(sumOfKcal);
+
     // powyższe nie działa; trzeba ogarnąć jakoś dodawanie elementów tablicy
 });

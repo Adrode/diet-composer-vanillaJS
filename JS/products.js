@@ -1,5 +1,13 @@
 export const products = [
     {
+        category: "basic",
+        name: "-----",
+        kcal: 0,
+        whey: 0,
+        fat: 0,
+        carbs: 0,
+    },
+    {
         category: "fruits/vegetables",
         name: "frozen strawberries",
         kcal: 35,
