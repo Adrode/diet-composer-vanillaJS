@@ -1,5 +1,6 @@
 export const products = [
     {
+        id: 0,
         category: "basic",
         name: "-----",
         kcal: 0,
@@ -8,6 +9,7 @@ export const products = [
         carbs: 0,
     },
     {
+        id: 1,
         category: "fruits/vegetables",
         name: "frozen strawberries",
         kcal: 35,
@@ -16,6 +18,7 @@ export const products = [
         carbs: 8,
     },
     {
+        id: 2,
         category: "fruits/vegetables",
         name: "banana",
         kcal: 89,
@@ -24,6 +27,7 @@ export const products = [
         carbs: 23,
     },
     {
+        id: 3,
         category: "fruits/vegetables",
         name: "apple",
         kcal: 57,
@@ -32,6 +36,7 @@ export const products = [
         carbs: 14,
     },
     {
+        id: 4,
         category: "whey",
         name: "lean cottage cheese",
         kcal: 83,
@@ -40,6 +45,7 @@ export const products = [
         carbs: 4,
     },
     {
+        id: 5,
         category: "carbs",
         name: "oat flakes",
         kcal: 354,

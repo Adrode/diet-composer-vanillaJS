@@ -9,9 +9,10 @@ const actualWhey = document.querySelector(".js-actualPerMealWhey");
 const actualFat = document.querySelector(".js-actualPerMealFat");
 const actualCarbs = document.querySelector(".js-actualPerMealCarbs");
 
-const productsToOptions = products.map((product) => `
-        <option value="${product.name}">${product.name}</option>
-    `);
+const productsToOptions = products.map((product) => {
+    if (product.id === 0) return `<option selected value="${product.name}">${product.name}</option>`;
+    return `<option value="${product.name}">${product.name}</option>`;
+});
 
 const generateProductPickers = () => {
     return Array.from({ length: Number(productsInputValue.value) }).map((_, index) => `
