@@ -24,10 +24,10 @@ const generateProductPickers = () => {
                 <button class="product__sign js-plusButton${index + 1}">+</button>
             </form>
             <div class="product__macros">
-                <div><span class="js-productKcal${index + 1}">[]</span> kcal</div>
-                <div><span class="js-productWhey${index + 1}">[]</span>g whey</div>
-                <div><span class="js-productFat${index + 1}">[]</span>g fat</div>
-                <div><span class="js-productCarbs${index + 1}">[]</span>g carbs</div>
+                <div><span class="js-productKcal${index + 1}">0</span> kcal</div>
+                <div><span class="js-productWhey${index + 1}">0</span>g whey</div>
+                <div><span class="js-productFat${index + 1}">0</span>g fat</div>
+                <div><span class="js-productCarbs${index + 1}">0</span>g carbs</div>
             </div>
         </div>`
     ).join("")
@@ -43,9 +43,50 @@ let productsWhey = [];
 let productsFat = [];
 let productsCarbs = [];
 let sumOfKcal = [];
-let sumOfWhey;
-let sumOfFat;
-let sumOfCarbs;
+let sumOfWhey = [];
+let sumOfFat = [];
+let sumOfCarbs = [];
+
+const productsToMacros = (productsWeightRef, productsSelectRef, productsKcalRef, productsWheyRef, productsFatRef, productsCarbsRef) => {
+    let productMacros = products.find((product) => product.name === productsSelectRef.value);
+
+    sumOfKcal = [];
+    sumOfWhey = [];
+    sumOfFat = [];
+    sumOfCarbs = [];
+
+    if (productMacros) {
+        let weight = Number(productsWeightRef.innerText);
+        productsKcalRef.innerText = Math.ceil(productMacros.kcal * (weight / 100));
+        productsWheyRef.innerText = Math.ceil(productMacros.whey * (weight / 100));
+        productsFatRef.innerText = Math.ceil(productMacros.fat * (weight / 100));
+        productsCarbsRef.innerText = Math.ceil(productMacros.carbs * (weight / 100));
+    }
+
+    productsKcal.forEach((product) => {
+        sumOfKcal.push(Number(document.querySelector("." + product).innerText));
+    })
+    let sumKcal = sumOfKcal.reduce((accumulator, value) => accumulator + value, 0);
+    actualKcal.innerText = sumKcal;
+
+    productsWhey.forEach((product) => {
+        sumOfWhey.push(Number(document.querySelector("." + product).innerText));
+    })
+    let sumWhey = sumOfWhey.reduce((accumulator, value) => accumulator + value, 0);
+    actualWhey.innerText = sumWhey;
+
+    productsFat.forEach((product) => {
+        sumOfFat.push(Number(document.querySelector("." + product).innerText));
+    })
+    let sumFat = sumOfFat.reduce((accumulator, value) => accumulator + value, 0);
+    actualFat.innerText = sumFat;
+
+    productsCarbs.forEach((product) => {
+        sumOfCarbs.push(Number(document.querySelector("." + product).innerText));
+    })
+    let sumCarbs = sumOfWhey.reduce((accumulator, value) => accumulator + value, 0);
+    actualCarbs.innerText = sumCarbs;
+}
 
 form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -86,25 +127,6 @@ form.addEventListener("submit", (event) => {
         let productsFatRef = document.querySelector("." + productsFat[i - 1]);
         let productsCarbsRef = document.querySelector("." + productsCarbs[i - 1]);
 
-        const productsToMacros = (productsWeightRef, productsSelectRef, productsKcalRef, productsWheyRef, productsFatRef, productsCarbsRef) => {
-            let productMacros = products.find((product) => product.name === productsSelectRef.value);
-
-            sumOfKcal = [];
-
-            if (productMacros) {
-                let weight = Number(productsWeightRef.innerText);
-                productsKcalRef.innerText = Math.ceil(productMacros.kcal * (weight / 100));
-                productsWheyRef.innerText = Math.ceil(productMacros.whey * (weight / 100));
-                productsFatRef.innerText = Math.ceil(productMacros.fat * (weight / 100));
-                productsCarbsRef.innerText = Math.ceil(productMacros.carbs * (weight / 100));
-            }
-
-            productsKcal.forEach((product) => {
-                sumOfKcal.push(Number(document.querySelector("." + product).innerText));
-            })
-            console.log(sumOfKcal);
-        }
-
         productsFormRef.addEventListener("submit", (event) => {
             event.preventDefault();
         });
@@ -126,7 +148,4 @@ form.addEventListener("submit", (event) => {
             productsToMacros(productsWeightRef, productsSelectRef, productsKcalRef, productsWheyRef, productsFatRef, productsCarbsRef);
         });
     }
-
-
-    // powyższe nie działa; trzeba ogarnąć jakoś dodawanie elementów tablicy
 });
