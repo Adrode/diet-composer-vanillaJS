@@ -1,8 +1,8 @@
 import { products } from "./products.js";
 
 const form = document.querySelector(".js-productsNumber");
-let productsInputValue = document.querySelector(".js-productsNumberRange");
-let productPickers = document.querySelector(".js-productPickers");
+const productsInputValue = document.querySelector(".js-productsNumberRange");
+const productPickers = document.querySelector(".js-productPickers");
 
 const actualKcal = document.querySelector(".js-actualPerMealKcal");
 const actualWhey = document.querySelector(".js-actualPerMealWhey");
@@ -33,15 +33,6 @@ const generateProductPickers = () => {
     ).join("")
 };
 
-let productsWeight = [];
-let productsForm = [];
-let minusButtons = [];
-let productsSelect = [];
-let plusButtons = [];
-let productsKcal = [];
-let productsWhey = [];
-let productsFat = [];
-let productsCarbs = [];
 let sumOfKcal = [];
 let sumOfWhey = [];
 let sumOfFat = [];
@@ -63,6 +54,7 @@ const productsToMacros = (productsWeightRef, productsSelectRef, productsKcalRef,
         productsCarbsRef.innerText = Math.ceil(productMacros.carbs * (weight / 100));
     }
 
+    // -------------------------------------------------------
     productsKcal.forEach((product) => {
         sumOfKcal.push(Number(document.querySelector("." + product).innerText));
     })
@@ -86,7 +78,40 @@ const productsToMacros = (productsWeightRef, productsSelectRef, productsKcalRef,
     })
     let sumCarbs = sumOfCarbs.reduce((accumulator, value) => accumulator + value, 0);
     actualCarbs.innerText = sumCarbs;
+    // -------------------------------------------------------
+    // above code to be reduced to more generic code
 }
+
+let productsWeight = [];
+let productsForm = [];
+let minusButtons = [];
+let productsSelect = [];
+let plusButtons = [];
+let productsKcal = [];
+let productsWhey = [];
+let productsFat = [];
+let productsCarbs = [];
+
+// -----------------------------
+
+const pickersProducts = [];
+
+for (let i = 1; i <= Number(productsInputValue.value); i++) {
+    pickersProducts.push({
+        form: "js-productForm" + i,
+        minusButtons: "js-minusButtons" + i,
+        select: "js-productSelect" + i,
+        plusButtons: "js-plusButtons" + i,
+        weight: "js-productWeight" + i,
+        kcal: "js-productKcal" + i,
+        whey: "js-productWhey" + i,
+        fat: "js-productFat" + i,
+        carbs: "js-productCarbs" + i,
+    });
+}
+
+// -----------------------------
+// ABOVE LOOP FOR ARRAY WITH OBJECTS, INSTEAD OD SEPARATE ARRAYS
 
 form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -116,6 +141,7 @@ form.addEventListener("submit", (event) => {
         productsWhey.push("js-productWhey" + i);
         productsFat.push("js-productFat" + i);
         productsCarbs.push("js-productCarbs" + i);
+        // above to reduce to one array with objects - more generic option
 
         let productsFormRef = document.querySelector("." + productsForm[i - 1]);
         let productsWeightRef = document.querySelector("." + productsWeight[i - 1]);
