@@ -5,7 +5,7 @@ const productsInputValue = document.querySelector(".js-productsNumberRange");
 const productPickers = document.querySelector(".js-productPickers");
 
 const actualKcal = document.querySelector(".js-actualPerMealKcal");
-const actualWhey = document.querySelector(".js-actualPerMealWhey");
+const actualProtein = document.querySelector(".js-actualPerMealProtein");
 const actualFat = document.querySelector(".js-actualPerMealFat");
 const actualCarbs = document.querySelector(".js-actualPerMealCarbs");
 
@@ -25,7 +25,7 @@ const generateProductPickers = () => {
             </form>
             <div class="product__macros">
                 <div><span class="js-productKcal${index + 1}">0</span> kcal</div>
-                <div><span class="js-productWhey${index + 1}">0</span>g whey</div>
+                <div><span class="js-productProtein${index + 1}">0</span>g protein</div>
                 <div><span class="js-productFat${index + 1}">0</span>g fat</div>
                 <div><span class="js-productCarbs${index + 1}">0</span>g carbs</div>
             </div>
@@ -34,22 +34,22 @@ const generateProductPickers = () => {
 };
 
 let sumOfKcal = [];
-let sumOfWhey = [];
+let sumOfProtein = [];
 let sumOfFat = [];
 let sumOfCarbs = [];
 
-const productsToMacros = (productsWeightRef, productsSelectRef, productsKcalRef, productsWheyRef, productsFatRef, productsCarbsRef) => {
+const productsToMacros = (productsWeightRef, productsSelectRef, productsKcalRef, productsProteinRef, productsFatRef, productsCarbsRef) => {
     let productMacros = products.find((product) => product.name === productsSelectRef.value);
 
     sumOfKcal = [];
-    sumOfWhey = [];
+    sumOfProtein = [];
     sumOfFat = [];
     sumOfCarbs = [];
 
     if (productMacros) {
         let weight = Number(productsWeightRef.innerText);
         productsKcalRef.innerText = Math.ceil(productMacros.kcal * (weight / 100));
-        productsWheyRef.innerText = Math.ceil(productMacros.whey * (weight / 100));
+        productsProteinRef.innerText = Math.ceil(productMacros.protein * (weight / 100));
         productsFatRef.innerText = Math.ceil(productMacros.fat * (weight / 100));
         productsCarbsRef.innerText = Math.ceil(productMacros.carbs * (weight / 100));
     }
@@ -61,11 +61,11 @@ const productsToMacros = (productsWeightRef, productsSelectRef, productsKcalRef,
     let sumKcal = sumOfKcal.reduce((accumulator, value) => accumulator + value, 0);
     actualKcal.innerText = sumKcal;
 
-    productsWhey.forEach((product) => {
-        sumOfWhey.push(Number(document.querySelector("." + product).innerText));
+    productsProtein.forEach((product) => {
+        sumOfProtein.push(Number(document.querySelector("." + product).innerText));
     })
-    let sumWhey = sumOfWhey.reduce((accumulator, value) => accumulator + value, 0);
-    actualWhey.innerText = sumWhey;
+    let sumProtein = sumOfProtein.reduce((accumulator, value) => accumulator + value, 0);
+    actualProtein.innerText = sumProtein;
 
     productsFat.forEach((product) => {
         sumOfFat.push(Number(document.querySelector("." + product).innerText));
@@ -88,7 +88,7 @@ let minusButtons = [];
 let productsSelect = [];
 let plusButtons = [];
 let productsKcal = [];
-let productsWhey = [];
+let productsProtein = [];
 let productsFat = [];
 let productsCarbs = [];
 
@@ -104,7 +104,7 @@ for (let i = 1; i <= Number(productsInputValue.value); i++) {
         plusButtons: "js-plusButtons" + i,
         weight: "js-productWeight" + i,
         kcal: "js-productKcal" + i,
-        whey: "js-productWhey" + i,
+        protein: "js-productProtein" + i,
         fat: "js-productFat" + i,
         carbs: "js-productCarbs" + i,
     });
@@ -123,7 +123,7 @@ form.addEventListener("submit", (event) => {
     productsSelect = [];
     plusButtons = [];
     productsKcal = [];
-    productsWhey = [];
+    productsProtein = [];
     productsFat = [];
     productsCarbs = [];
 
@@ -138,7 +138,7 @@ form.addEventListener("submit", (event) => {
         productsSelect.push("js-productSelect" + i);
         plusButtons.push("js-plusButton" + i);
         productsKcal.push("js-productKcal" + i);
-        productsWhey.push("js-productWhey" + i);
+        productsProtein.push("js-productProtein" + i);
         productsFat.push("js-productFat" + i);
         productsCarbs.push("js-productCarbs" + i);
         // above to reduce to one array with objects - more generic option
@@ -149,7 +149,7 @@ form.addEventListener("submit", (event) => {
         let productsSelectRef = document.querySelector("." + productsSelect[i - 1]);
         let plusButtonsRef = document.querySelector("." + plusButtons[i - 1]);
         let productsKcalRef = document.querySelector("." + productsKcal[i - 1]);
-        let productsWheyRef = document.querySelector("." + productsWhey[i - 1]);
+        let productsProteinRef = document.querySelector("." + productsProtein[i - 1]);
         let productsFatRef = document.querySelector("." + productsFat[i - 1]);
         let productsCarbsRef = document.querySelector("." + productsCarbs[i - 1]);
 
@@ -160,18 +160,18 @@ form.addEventListener("submit", (event) => {
         productsSelectRef.innerHTML = productsToOptions;
 
         productsSelectRef.addEventListener("input", () => {
-            productsToMacros(productsWeightRef, productsSelectRef, productsKcalRef, productsWheyRef, productsFatRef, productsCarbsRef);
+            productsToMacros(productsWeightRef, productsSelectRef, productsKcalRef, productsProteinRef, productsFatRef, productsCarbsRef);
         });
 
         minusButtonsRef.addEventListener("click", () => {
             if (productsWeightRef.innerText <= 0) return;
             productsWeightRef.innerText = Number(productsWeightRef.innerText) - 10;
-            productsToMacros(productsWeightRef, productsSelectRef, productsKcalRef, productsWheyRef, productsFatRef, productsCarbsRef);
+            productsToMacros(productsWeightRef, productsSelectRef, productsKcalRef, productsProteinRef, productsFatRef, productsCarbsRef);
         });
 
         plusButtonsRef.addEventListener("click", () => {
             productsWeightRef.innerText = Number(productsWeightRef.innerText) + 10;
-            productsToMacros(productsWeightRef, productsSelectRef, productsKcalRef, productsWheyRef, productsFatRef, productsCarbsRef);
+            productsToMacros(productsWeightRef, productsSelectRef, productsKcalRef, productsProteinRef, productsFatRef, productsCarbsRef);
         });
     }
 });
