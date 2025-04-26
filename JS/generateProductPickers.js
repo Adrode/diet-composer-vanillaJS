@@ -8,6 +8,7 @@ const actualKcal = document.querySelector(".js-actualPerMealKcal");
 const actualProtein = document.querySelector(".js-actualPerMealProtein");
 const actualFat = document.querySelector(".js-actualPerMealFat");
 const actualCarbs = document.querySelector(".js-actualPerMealCarbs");
+const actualPrice = document.querySelector(".js-actualPerMealPrice");
 
 const productsToOptions = products.map((product) => {
     if (product.id === 0) return `<option selected value="${product.name}">${product.name}</option>`;
@@ -28,6 +29,7 @@ const generateProductPickers = () => {
                 <div><span class="js-productProtein${index + 1}">0</span>g protein</div>
                 <div><span class="js-productFat${index + 1}">0</span>g fat</div>
                 <div><span class="js-productCarbs${index + 1}">0</span>g carbs</div>
+                <div><span class="js-productPrice${index + 1}">0</span>zł</div>
             </div>
         </div>`
     ).join("")
@@ -42,18 +44,21 @@ let productsKcal = [];
 let productsProtein = [];
 let productsFat = [];
 let productsCarbs = [];
+let productsPrice = [];
 let sumOfKcal = [];
 let sumOfProtein = [];
 let sumOfFat = [];
 let sumOfCarbs = [];
+let sumOfPrice = [];
 
-const productsToMacros = (productsWeightRef, productsSelectRef, productsKcalRef, productsProteinRef, productsFatRef, productsCarbsRef) => {
+const productsToMacros = (productsWeightRef, productsSelectRef, productsKcalRef, productsProteinRef, productsFatRef, productsCarbsRef, productsPriceRef) => {
     let productMacros = products.find((product) => product.name === productsSelectRef.value);
 
     sumOfKcal = [];
     sumOfProtein = [];
     sumOfFat = [];
     sumOfCarbs = [];
+    sumOfPrice = [];
 
     if (productMacros) {
         let weight = Number(productsWeightRef.innerText);
@@ -61,6 +66,7 @@ const productsToMacros = (productsWeightRef, productsSelectRef, productsKcalRef,
         productsProteinRef.innerText = Math.ceil(productMacros.protein * (weight / 100));
         productsFatRef.innerText = Math.ceil(productMacros.fat * (weight / 100));
         productsCarbsRef.innerText = Math.ceil(productMacros.carbs * (weight / 100));
+        productsPriceRef.innerText = (productMacros.price * (weight / 100)).toFixed(2);
     }
 
     productsKcal.forEach((product) => {
@@ -86,6 +92,12 @@ const productsToMacros = (productsWeightRef, productsSelectRef, productsKcalRef,
     })
     let sumCarbs = sumOfCarbs.reduce((accumulator, value) => accumulator + value, 0);
     actualCarbs.innerText = sumCarbs;
+
+    productsPrice.forEach((product) => {
+        sumOfPrice.push(Number(document.querySelector("." + product).innerText));
+    })
+    let sumPrice = sumOfPrice.reduce((accumulator, value) => accumulator + value, 0);
+    actualPrice.innerText = sumPrice.toFixed(2);
 }
 
 form.addEventListener("submit", (event) => {
@@ -101,6 +113,7 @@ form.addEventListener("submit", (event) => {
     productsProtein = [];
     productsFat = [];
     productsCarbs = [];
+    productsPrice = [];
 
     for (let i = 1; i <= productsInputValue.value; i++) {
         if (!productsInputValue.value) {
@@ -116,6 +129,7 @@ form.addEventListener("submit", (event) => {
         productsProtein.push("js-productProtein" + i);
         productsFat.push("js-productFat" + i);
         productsCarbs.push("js-productCarbs" + i);
+        productsPrice.push("js-productPrice" + i);
 
         let productsFormRef = document.querySelector("." + productsForm[i - 1]);
         let productsWeightRef = document.querySelector("." + productsWeight[i - 1]);
@@ -126,6 +140,7 @@ form.addEventListener("submit", (event) => {
         let productsProteinRef = document.querySelector("." + productsProtein[i - 1]);
         let productsFatRef = document.querySelector("." + productsFat[i - 1]);
         let productsCarbsRef = document.querySelector("." + productsCarbs[i - 1]);
+        let productsPriceRef = document.querySelector("." + productsPrice[i - 1]);
 
         productsFormRef.addEventListener("submit", (event) => {
             event.preventDefault();
@@ -134,18 +149,18 @@ form.addEventListener("submit", (event) => {
         productsSelectRef.innerHTML = productsToOptions;
 
         productsSelectRef.addEventListener("input", () => {
-            productsToMacros(productsWeightRef, productsSelectRef, productsKcalRef, productsProteinRef, productsFatRef, productsCarbsRef);
+            productsToMacros(productsWeightRef, productsSelectRef, productsKcalRef, productsProteinRef, productsFatRef, productsCarbsRef, productsPriceRef);
         });
 
         minusButtonsRef.addEventListener("click", () => {
             if (productsWeightRef.innerText <= 0) return;
             productsWeightRef.innerText = Number(productsWeightRef.innerText) - 10;
-            productsToMacros(productsWeightRef, productsSelectRef, productsKcalRef, productsProteinRef, productsFatRef, productsCarbsRef);
+            productsToMacros(productsWeightRef, productsSelectRef, productsKcalRef, productsProteinRef, productsFatRef, productsCarbsRef, productsPriceRef);
         });
 
         plusButtonsRef.addEventListener("click", () => {
             productsWeightRef.innerText = Number(productsWeightRef.innerText) + 10;
-            productsToMacros(productsWeightRef, productsSelectRef, productsKcalRef, productsProteinRef, productsFatRef, productsCarbsRef);
+            productsToMacros(productsWeightRef, productsSelectRef, productsKcalRef, productsProteinRef, productsFatRef, productsCarbsRef, productsPriceRef);
         });
     }
 });

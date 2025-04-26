@@ -38,7 +38,7 @@ export const products = [
         protein: 10,
         fat: 48,
         carbs: 21,
-        pricePer100g: 9.99,
+        price: 9.99,
     },
     {
         id: 4,
@@ -48,7 +48,7 @@ export const products = [
         protein: 1,
         fat: 0,
         carbs: 23,
-        pricePer100g: 0.7,
+        price: 0.7,
     },
     {
         id: 5,
@@ -58,7 +58,7 @@ export const products = [
         protein: 9,
         fat: 2,
         carbs: 45,
-        pricePer100g: 0.64,
+        price: 0.64,
     },
     {
         id: 6,
@@ -68,7 +68,7 @@ export const products = [
         protein: 12,
         fat: 7,
         carbs: 43,
-        pricePer100g: 1.61,
+        price: 1.61,
     },
     {
         id: 7,
@@ -78,7 +78,7 @@ export const products = [
         protein: 15,
         fat: 69,
         carbs: 4,
-        pricePer100g: 8.5,
+        price: 8.5,
     },
     {
         id: 8,
@@ -88,7 +88,7 @@ export const products = [
         protein: 0,
         fat: 0,
         carbs: 14,
-        pricePer100g: 0.6,
+        price: 0.6,
     },
     {
         id: 9,
@@ -98,7 +98,7 @@ export const products = [
         protein: 2,
         fat: 0,
         carbs: 18,
-        pricePer100g: 0.44,
+        price: 0.44,
     },
     {
         id: 10,
@@ -108,7 +108,7 @@ export const products = [
         protein: 1,
         fat: 0,
         carbs: 8,
-        pricePer100g: 0.45,
+        price: 0.45,
     },
     {
         id: 11,
@@ -118,7 +118,7 @@ export const products = [
         protein: 1,
         fat: 0,
         carbs: 10,
-        pricePer100g: 0.4,
+        price: 0.4,
     },
     {
         id: 12,
@@ -128,7 +128,7 @@ export const products = [
         protein: 3,
         fat: 0,
         carbs: 3,
-        pricePer100g: 1.6,
+        price: 1.6,
     },
     {
         id: 13,
@@ -138,7 +138,7 @@ export const products = [
         protein: 1,
         fat: 0,
         carbs: 7,
-        pricePer100g: 1.7,
+        price: 1.7,
     },
     {
         id: 14,
@@ -148,7 +148,7 @@ export const products = [
         protein: 1,
         fat: 0,
         carbs: 4,
-        pricePer100g: 1.5,
+        price: 1.5,
     },
     {
         id: 15,
@@ -158,7 +158,7 @@ export const products = [
         protein: 1,
         fat: 0,
         carbs: 3,
-        pricePer100g: 0.9,
+        price: 0.9,
     },
     {
         id: 16,
@@ -168,7 +168,7 @@ export const products = [
         protein: 19,
         fat: 3,
         carbs: 3,
-        pricePer100g: 4,
+        price: 4,
     },
     {
         id: 17,
@@ -178,7 +178,7 @@ export const products = [
         protein: 19,
         fat: 8,
         carbs: 1,
-        pricePer100g: 2.63,
+        price: 2.63,
     },
     {
         id: 18,
@@ -188,7 +188,7 @@ export const products = [
         protein: 26,
         fat: 27,
         carbs: 0,
-        pricePer100g: 3.15,
+        price: 3.15,
     },
     {
         id: 19,
@@ -198,7 +198,7 @@ export const products = [
         protein: 8,
         fat: 20,
         carbs: 3,
-        pricePer100g: 2.66,
+        price: 2.66,
     },
     {
         id: 20,
@@ -208,7 +208,7 @@ export const products = [
         protein: 20,
         fat: 5,
         carbs: 1,
-        pricePer100g: 2.4,
+        price: 2.4,
     },
     {
         id: 21,
@@ -218,7 +218,7 @@ export const products = [
         protein: 22,
         fat: 3,
         carbs: 0,
-        pricePer100g: 2.49,
+        price: 2.49,
     },
     {
         id: 22,
@@ -228,7 +228,7 @@ export const products = [
         protein: 12,
         fat: 0,
         carbs: 4,
-        pricePer100g: 1.6,
+        price: 1.6,
     },
     {
         id: 23,
@@ -238,7 +238,7 @@ export const products = [
         protein: 10,
         fat: 0,
         carbs: 11,
-        pricePer100g: 1.7,
+        price: 1.7,
     },
     {
         id: 24,
@@ -248,7 +248,7 @@ export const products = [
         protein: 17,
         fat: 0,
         carbs: 3,
-        pricePer100g: 1.44,
+        price: 1.44,
     },
     {
         id: 25,
@@ -258,7 +258,7 @@ export const products = [
         protein: 3,
         fat: 2,
         carbs: 5,
-        pricePer100g: 0.44,
+        price: 0.44,
     },
     {
         id: 26,
@@ -268,7 +268,7 @@ export const products = [
         protein: 2,
         fat: 0,
         carbs: 7,
-        pricePer100g: 0.89,
+        price: 0.89,
     },
     {
         id: 27,
@@ -278,7 +278,7 @@ export const products = [
         protein: 1,
         fat: 0,
         carbs: 3,
-        pricePer100g: 0.88,
+        price: 0.88,
     },
     {
         id: 28,
@@ -288,7 +288,7 @@ export const products = [
         protein: 2,
         fat: 0,
         carbs: 6,
-        pricePer100g: 1.1,
+        price: 1.1,
     },
     {
         id: 29,
@@ -298,7 +298,7 @@ export const products = [
         protein: 1,
         fat: 33,
         carbs: 8,
-        pricePer100g: 2.33,
+        price: 2.33,
     },
     {
         id: 30,
@@ -308,7 +308,7 @@ export const products = [
         protein: 1,
         fat: 0,
         carbs: 28,
-        pricePer100g: 0.85,
+        price: 0.85,
     },
     {
         id: 31,
@@ -318,7 +318,7 @@ export const products = [
         protein: 2,
         fat: 0,
         carbs: 6,
-        pricePer100g: 0.96,
+        price: 0.96,
     },
     {
         id: 32,
@@ -328,7 +328,7 @@ export const products = [
         protein: 15,
         fat: 3,
         carbs: 62,
-        pricePer100g: 0.92
+        price: 0.92
     },
     {
         id: 33,
@@ -338,7 +338,7 @@ export const products = [
         protein: 15,
         fat: 3,
         carbs: 62,
-        pricePer100g: 0.92,
+        price: 0.92,
     },
     {
         id: 34,
@@ -348,7 +348,7 @@ export const products = [
         protein: 7,
         fat: 1,
         carbs: 78,
-        pricePer100g: 0.82,
+        price: 0.82,
     },
     {
         id: 35,
@@ -358,7 +358,7 @@ export const products = [
         protein: 0,
         fat: 92,
         carbs: 0,
-        pricePer100g: 4.66,
+        price: 4.66,
     },
     {
         id: 36,
@@ -368,7 +368,7 @@ export const products = [
         protein: 7,
         fat: 5,
         carbs: 1,
-        pricePer100g: 2.2,
+        price: 2.2,
     },
     {
         id: 37,
@@ -378,7 +378,7 @@ export const products = [
         protein: 0,
         fat: 0,
         carbs: 33,
-        pricePer100g: 1.19,
+        price: 1.19,
     },
     {
         id: 38,
@@ -388,7 +388,7 @@ export const products = [
         protein: 27,
         fat: 48,
         carbs: 12,
-        pricePer100g: 2.7,
+        price: 2.7,
     },
     {
         id: 39,
@@ -398,7 +398,7 @@ export const products = [
         protein: 12,
         fat: 6,
         carbs: 56,
-        pricePer100g: 0.58,
+        price: 0.58,
     },
     {
         id: 40,
@@ -408,7 +408,7 @@ export const products = [
         protein: 9,
         fat: 2,
         carbs: 83,
-        pricePer100g: 1.2,
+        price: 1.2,
     },
     {
         id: 41,
@@ -418,7 +418,7 @@ export const products = [
         protein: 13,
         fat: 2,
         carbs: 59,
-        pricePer100g: 0.27,
+        price: 0.27,
     },
     {
         id: 42,
@@ -428,7 +428,7 @@ export const products = [
         protein: 7,
         fat: 61,
         carbs: 7,
-        pricePer100g: 1.9,
+        price: 1.9,
     },
     {
         id: 43,
@@ -438,7 +438,7 @@ export const products = [
         protein: 3,
         fat: 1,
         carbs: 11,
-        pricePer100g: 1.4,
+        price: 1.4,
     },
     {
         id: 44,
@@ -448,7 +448,7 @@ export const products = [
         protein: 7,
         fat: 1,
         carbs: 13,
-        pricePer100g: 1.29,
+        price: 1.29,
     },
     {
         id: 45,
@@ -458,7 +458,7 @@ export const products = [
         protein: 24,
         fat: 11,
         carbs: 13,
-        pricePer100g: 4.5,
+        price: 4.5,
     },
     {
         id: 46,
@@ -468,6 +468,6 @@ export const products = [
         protein: 3,
         fat: 0,
         carbs: 3,
-        pricePer100g: 4.99,
+        price: 4.99,
     },
 ];
