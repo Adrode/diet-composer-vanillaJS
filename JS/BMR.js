@@ -1,5 +1,5 @@
 {
-    const weight = 69;
+    const weight = 70;
     const height = 170;
     const age = 25;
     const mealsPerDay = 4;
