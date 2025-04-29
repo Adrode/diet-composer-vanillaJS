@@ -33,25 +33,23 @@ const generateProductPickers = () => {
     ).join("")
 };
 
-let sumOfKcal = [];
-let sumOfProtein = [];
-let sumOfFat = [];
-let sumOfCarbs = [];
+const productsToMacros = (productElementsPicker, id) => {
+    let productMacros = products.find((product) => product.name === (productElementsPicker[id].select).value);
+    console.log("productMacros:" + productElementsPicker[id].select.value);
 
-const productsToMacros = (productsWeightRef, productsSelectRef, productsKcalRef, productsProteinRef, productsFatRef, productsCarbsRef) => {
-    let productMacros = products.find((product) => product.name === productsSelectRef.value);
-
-    sumOfKcal = [];
-    sumOfProtein = [];
-    sumOfFat = [];
-    sumOfCarbs = [];
+    let sumOfKcal = [];
+    let sumOfProtein = [];
+    let sumOfFat = [];
+    let sumOfCarbs = [];
 
     if (productMacros) {
-        let weight = Number(productsWeightRef.innerText);
-        productsKcalRef.innerText = Math.ceil(productMacros.kcal * (weight / 100));
-        productsProteinRef.innerText = Math.ceil(productMacros.protein * (weight / 100));
-        productsFatRef.innerText = Math.ceil(productMacros.fat * (weight / 100));
-        productsCarbsRef.innerText = Math.ceil(productMacros.carbs * (weight / 100));
+        let weight = Number((productElementsPicker[id].weight).innerText);
+        (productElementsPicker[id].kcal).innerText = Math.ceil(productMacros.kcal * (weight / 100));
+        (productElementsPicker[id].protein).innerText = Math.ceil(productMacros.protein * (weight / 100));
+        (productElementsPicker[id].fat).innerText = Math.ceil(productMacros.fat * (weight / 100));
+        (productElementsPicker[id].carbs).innerText = Math.ceil(productMacros.carbs * (weight / 100));
+
+        console.log((productElementsPicker[id].kcal).innerText = Math.ceil(productMacros.kcal * (weight / 100)));
     }
 
     // -------------------------------------------------------
@@ -82,96 +80,50 @@ const productsToMacros = (productsWeightRef, productsSelectRef, productsKcalRef,
     // above code to be reduced to more generic code
 }
 
-let productsWeight = [];
-let productsForm = [];
-let minusButtons = [];
-let productsSelect = [];
-let plusButtons = [];
 let productsKcal = [];
 let productsProtein = [];
 let productsFat = [];
 let productsCarbs = [];
 
-// -----------------------------
-
-const pickersProducts = [];
-
-for (let i = 1; i <= Number(productsInputValue.value); i++) {
-    pickersProducts.push({
-        form: "js-productForm" + i,
-        minusButtons: "js-minusButtons" + i,
-        select: "js-productSelect" + i,
-        plusButtons: "js-plusButtons" + i,
-        weight: "js-productWeight" + i,
-        kcal: "js-productKcal" + i,
-        protein: "js-productProtein" + i,
-        fat: "js-productFat" + i,
-        carbs: "js-productCarbs" + i,
-    });
-}
-
-// -----------------------------
-// ABOVE LOOP FOR ARRAY WITH OBJECTS, INSTEAD OD SEPARATE ARRAYS
-
 form.addEventListener("submit", (event) => {
     event.preventDefault();
     productPickers.innerHTML = generateProductPickers();
 
-    productsWeight = [];
-    productsForm = [];
-    minusButtons = [];
-    productsSelect = [];
-    plusButtons = [];
-    productsKcal = [];
-    productsProtein = [];
-    productsFat = [];
-    productsCarbs = [];
+    const productElementsPicker = [];
 
-    for (let i = 1; i <= productsInputValue.value; i++) {
-        if (!productsInputValue.value) {
-            return;
-        }
+    for (let i = 1; i <= Number(productsInputValue.value); i++) {
+        productElementsPicker.push({
+            form: document.querySelector(".js-productForm" + i),
+            minusButtons: document.querySelector(".js-minusButtons" + i),
+            select: document.querySelector(".js-productSelect" + i),
+            plusButtons: document.querySelector(".js-plusButtons" + i),
+            weight: document.querySelector(".js-productWeight" + i),
+            kcal: document.querySelector(".js-productKcal" + i),
+            protein: document.querySelector(".js-productProtein" + i),
+            fat: document.querySelector(".js-productFat" + i),
+            carbs: document.querySelector(".js-productCarbs" + i),
+            price: document.querySelector(".js-productPrice" + i),
+        });
 
-        productsWeight.push("js-productWeight" + i);
-        productsForm.push("js-productForm" + i);
-        minusButtons.push("js-minusButton" + i);
-        productsSelect.push("js-productSelect" + i);
-        plusButtons.push("js-plusButton" + i);
-        productsKcal.push("js-productKcal" + i);
-        productsProtein.push("js-productProtein" + i);
-        productsFat.push("js-productFat" + i);
-        productsCarbs.push("js-productCarbs" + i);
-        // above to reduce to one array with objects - more generic option
-
-        let productsFormRef = document.querySelector("." + productsForm[i - 1]);
-        let productsWeightRef = document.querySelector("." + productsWeight[i - 1]);
-        let minusButtonsRef = document.querySelector("." + minusButtons[i - 1]);
-        let productsSelectRef = document.querySelector("." + productsSelect[i - 1]);
-        let plusButtonsRef = document.querySelector("." + plusButtons[i - 1]);
-        let productsKcalRef = document.querySelector("." + productsKcal[i - 1]);
-        let productsProteinRef = document.querySelector("." + productsProtein[i - 1]);
-        let productsFatRef = document.querySelector("." + productsFat[i - 1]);
-        let productsCarbsRef = document.querySelector("." + productsCarbs[i - 1]);
-
-        productsFormRef.addEventListener("submit", (event) => {
+        (productElementsPicker[i - 1].form).addEventListener("submit", (event) => {
             event.preventDefault();
         });
 
-        productsSelectRef.innerHTML = productsToOptions;
+        (productElementsPicker[i - 1].select).innerHTML = productsToOptions;
 
-        productsSelectRef.addEventListener("input", () => {
-            productsToMacros(productsWeightRef, productsSelectRef, productsKcalRef, productsProteinRef, productsFatRef, productsCarbsRef);
+        (productElementsPicker[i - 1].select).addEventListener("input", () => {
+            productsToMacros(productElementsPicker, i - 1);
         });
 
-        minusButtonsRef.addEventListener("click", () => {
-            if (productsWeightRef.innerText <= 0) return;
-            productsWeightRef.innerText = Number(productsWeightRef.innerText) - 10;
-            productsToMacros(productsWeightRef, productsSelectRef, productsKcalRef, productsProteinRef, productsFatRef, productsCarbsRef);
+        productElementsPicker[i - 1].minusButtons.addEventListener("click", () => {
+            if ((productElementsPicker[i - 1].weight).innerText <= 0) return;
+            (productElementsPicker[i - 1].weight).innerText = Number((productElementsPicker[i - 1].weight).innerText) - 10;
+            productsToMacros(productElementsPicker, i - 1);
         });
 
-        plusButtonsRef.addEventListener("click", () => {
-            productsWeightRef.innerText = Number(productsWeightRef.innerText) + 10;
-            productsToMacros(productsWeightRef, productsSelectRef, productsKcalRef, productsProteinRef, productsFatRef, productsCarbsRef);
+        (productElementsPicker[i - 1].plusButtons).addEventListener("click", () => {
+            (productElementsPicker[i - 1].weight).innerText = Number((productElementsPicker[i - 1].weight).innerText) + 10;
+            productsToMacros(productElementsPicker, i - 1);
         });
     }
 });
