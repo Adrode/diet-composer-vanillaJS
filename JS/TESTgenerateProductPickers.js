@@ -8,6 +8,7 @@ const actualKcal = document.querySelector(".js-actualPerMealKcal");
 const actualProtein = document.querySelector(".js-actualPerMealProtein");
 const actualFat = document.querySelector(".js-actualPerMealFat");
 const actualCarbs = document.querySelector(".js-actualPerMealCarbs");
+const actualPrice = document.querySelector(".js-actualPerMealPrice");
 
 const productsToOptions = products.map((product) => {
     if (product.id === 0) return `<option selected value="${product.name}">${product.name}</option>`;
@@ -28,19 +29,46 @@ const generateProductPickers = () => {
                 <div><span class="js-productProtein${index + 1}">0</span>g protein</div>
                 <div><span class="js-productFat${index + 1}">0</span>g fat</div>
                 <div><span class="js-productCarbs${index + 1}">0</span>g carbs</div>
+                <div><span class="js-productPrice${index + 1}">0</span>zł</div>
             </div>
         </div>`
     ).join("")
 };
 
+const sumOfMacros = (productElementsPicker) => {
+    let sumKcal = 0;
+    productElementsPicker.forEach((product) => {
+        sumKcal += Number(product.kcal.innerText);
+    })
+    actualKcal.innerText = sumKcal;
+
+    let sumProtein = 0;
+    productElementsPicker.forEach((product) => {
+        sumProtein += Number(product.protein.innerText);
+    })
+    actualProtein.innerText = sumProtein;
+
+    let sumFat = 0;
+    productElementsPicker.forEach((product) => {
+        sumFat += Number(product.fat.innerText);
+    })
+    actualFat.innerText = sumFat;
+
+    let sumCarbs = 0;
+    productElementsPicker.forEach((product) => {
+        sumCarbs += Number(product.carbs.innerText);
+    })
+    actualCarbs.innerText = sumCarbs;
+
+    let sumPrice = 0;
+    productElementsPicker.forEach((product) => {
+        sumPrice += Number(product.price.innerText);
+    })
+    actualPrice.innerText = sumPrice;
+}
+
 const productsToMacros = (productElementsPicker, id) => {
     let productMacros = products.find((product) => product.name === (productElementsPicker[id].select).value);
-    console.log("productMacros:" + productElementsPicker[id].select.value);
-
-    let sumOfKcal = [];
-    let sumOfProtein = [];
-    let sumOfFat = [];
-    let sumOfCarbs = [];
 
     if (productMacros) {
         let weight = Number((productElementsPicker[id].weight).innerText);
@@ -48,42 +76,11 @@ const productsToMacros = (productElementsPicker, id) => {
         (productElementsPicker[id].protein).innerText = Math.ceil(productMacros.protein * (weight / 100));
         (productElementsPicker[id].fat).innerText = Math.ceil(productMacros.fat * (weight / 100));
         (productElementsPicker[id].carbs).innerText = Math.ceil(productMacros.carbs * (weight / 100));
-
-        console.log((productElementsPicker[id].kcal).innerText = Math.ceil(productMacros.kcal * (weight / 100)));
+        (productElementsPicker[id].price).innerText = Math.ceil(productMacros.price * (weight / 100));
     }
 
-    // -------------------------------------------------------
-    productsKcal.forEach((product) => {
-        sumOfKcal.push(Number(document.querySelector("." + product).innerText));
-    })
-    let sumKcal = sumOfKcal.reduce((accumulator, value) => accumulator + value, 0);
-    actualKcal.innerText = sumKcal;
-
-    productsProtein.forEach((product) => {
-        sumOfProtein.push(Number(document.querySelector("." + product).innerText));
-    })
-    let sumProtein = sumOfProtein.reduce((accumulator, value) => accumulator + value, 0);
-    actualProtein.innerText = sumProtein;
-
-    productsFat.forEach((product) => {
-        sumOfFat.push(Number(document.querySelector("." + product).innerText));
-    })
-    let sumFat = sumOfFat.reduce((accumulator, value) => accumulator + value, 0);
-    actualFat.innerText = sumFat;
-
-    productsCarbs.forEach((product) => {
-        sumOfCarbs.push(Number(document.querySelector("." + product).innerText));
-    })
-    let sumCarbs = sumOfCarbs.reduce((accumulator, value) => accumulator + value, 0);
-    actualCarbs.innerText = sumCarbs;
-    // -------------------------------------------------------
-    // above code to be reduced to more generic code
+    sumOfMacros(productElementsPicker);
 }
-
-let productsKcal = [];
-let productsProtein = [];
-let productsFat = [];
-let productsCarbs = [];
 
 form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -94,9 +91,9 @@ form.addEventListener("submit", (event) => {
     for (let i = 1; i <= Number(productsInputValue.value); i++) {
         productElementsPicker.push({
             form: document.querySelector(".js-productForm" + i),
-            minusButtons: document.querySelector(".js-minusButtons" + i),
+            minusButtons: document.querySelector(".js-minusButton" + i),
             select: document.querySelector(".js-productSelect" + i),
-            plusButtons: document.querySelector(".js-plusButtons" + i),
+            plusButtons: document.querySelector(".js-plusButton" + i),
             weight: document.querySelector(".js-productWeight" + i),
             kcal: document.querySelector(".js-productKcal" + i),
             protein: document.querySelector(".js-productProtein" + i),
@@ -115,7 +112,7 @@ form.addEventListener("submit", (event) => {
             productsToMacros(productElementsPicker, i - 1);
         });
 
-        productElementsPicker[i - 1].minusButtons.addEventListener("click", () => {
+        (productElementsPicker[i - 1].minusButtons).addEventListener("click", () => {
             if ((productElementsPicker[i - 1].weight).innerText <= 0) return;
             (productElementsPicker[i - 1].weight).innerText = Number((productElementsPicker[i - 1].weight).innerText) - 10;
             productsToMacros(productElementsPicker, i - 1);
